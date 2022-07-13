@@ -1,4 +1,4 @@
-use std::{collections::HashMap, fs, env};
+use std::{collections::HashMap, fs, env, process::exit};
 
 enum StrOrInt {
     Str(String),
@@ -81,6 +81,11 @@ impl Parser {
 
 fn main() {
     let args: Vec<_> = env::args().skip(1).collect();
+
+    if args.len() <= 0 {
+        exit(1);
+    }
+
     let filename = &args[0];
 
     let templ = fs::read_to_string(filename).unwrap();
