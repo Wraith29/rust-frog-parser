@@ -1,4 +1,4 @@
-use std::{collections::HashMap, fs};
+use std::{collections::HashMap, fs, env};
 
 enum StrOrInt {
     Str(String),
@@ -80,7 +80,10 @@ impl Parser {
 }
 
 fn main() {
-    let templ = fs::read_to_string("test.rs.html").unwrap();
+    let args: Vec<_> = env::args().skip(1).collect();
+    let filename = &args[0];
+
+    let templ = fs::read_to_string(filename).unwrap();
     let mut parser = Parser::new(templ);
     let out = parser.parse().unwrap();
 
